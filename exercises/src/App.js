@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import './App.css'
+import IncrementButton from './components/IncrementButton'
+import DecrementButton from './components/DecrementButton'
+import CounterDisplay from './components/CounterDisplay'
 
-function App() {
+import CountContext from './provider/context'
+
+const App = () => {
+  const [count, setCount] = useState(0)
+
+  const onIncrement = () => setCount(count+1)
+  const onDecrement = () => setCount(count-1)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <CountContext.Provider value={{ count, onIncrement, onDecrement }}>
+      <div className="App">
+        <IncrementButton />
+        <DecrementButton />
+        <CounterDisplay />
+      </div>
+    </CountContext.Provider>
+  )
 }
 
-export default App;
+export default App
